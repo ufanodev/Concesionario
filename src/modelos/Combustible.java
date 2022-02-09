@@ -1,7 +1,6 @@
 package modelos;
 
 public class Combustible {
-
     public enum Energia {Gasolina, Diesel, GLP, Electrico};
 
     public static Energia motorEnergia(String motor){

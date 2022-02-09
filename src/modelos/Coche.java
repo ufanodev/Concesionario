@@ -13,12 +13,12 @@ public class Coche implements Serializable {
     private String modelo;
     private Date fechaCompra;
     private float potencia;
-    private Combustible combustible;
+    private Energia combustible;
     private boolean hibrido;
 
     //Constructores
 
-    public Coche(String matricula, String modelo, Date fechaCompra, float potencia, Combustible combustible, boolean hibrido) {
+    public Coche(String matricula, String modelo, Date fechaCompra, float potencia, Energia combustible, boolean hibrido) {
         this.matricula = matricula;
         this.modelo = modelo;
         this.fechaCompra = fechaCompra;
@@ -63,11 +63,11 @@ public class Coche implements Serializable {
         this.potencia = potencia;
     }
 
-    public Combustible getCombustible() {
+    public Energia getCombustible() {
         return combustible;
     }
 
-    public void setCombustible(Combustible combustible) {
+    public void setCombustible(Energia combustible) {
         this.combustible = combustible;
     }
 
@@ -90,5 +90,4 @@ public class Coche implements Serializable {
                 "\nHIBRIDO: "+this.isHibrido()+"\n";
         return info;
     }
-
 }

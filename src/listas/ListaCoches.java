@@ -29,6 +29,12 @@ public class ListaCoches implements Serializable {
         return coche;
     }
 
+    public Coche posicionVehiculo(Integer posicion){
+        Coche coche = null;
+        coche = lista.get(posicion);
+        return coche;
+    }
+
     public boolean existeMatricula(String matricula){
         boolean ok=false;
         ok=lista.containsKey(matricula);
