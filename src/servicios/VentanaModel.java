@@ -17,6 +17,7 @@ public class VentanaModel {
     private int posicion;
 
     public VentanaModel() throws ClassNotFoundException, IOException {
+
         if(fichero.existeFichero()){
             coches = fichero.cargarFichero();
         }else{
@@ -41,7 +42,7 @@ public class VentanaModel {
         coche.setCombustible(nuevoCoche.getCombustible());
         coche.setHibrido(nuevoCoche.isHibrido());
     }
-    // ELIMINACIÖN DE UN COCHE
+    // ELIMINACIÓN DE UN COCHE
     public void eliminaCoche(String matricula){
         coches.borrarVehiculo(matricula);
     }
@@ -91,6 +92,38 @@ public class VentanaModel {
     }
     //POSICION ACTUAL
     public Coche getActual() {
+        return coches.posicionVehiculo(posicion);
+    }
+    //Obtiene el primer coche
+    public Coche getPrimero() {
+
+        posicion = 0;
+        return coches.posicionVehiculo(posicion);
+    }
+
+    //Obtiene el coche anterior al coche actual
+    public Coche getAnterior() {
+
+        if (posicion == 0)
+            return null;
+
+        posicion--;
+        return coches.posicionVehiculo(posicion);
+    }
+    //Obtiene el coche siguiente al coche actual
+    public Coche getSiguiente() {
+
+        if (posicion == coches.sizeLista() - 1)
+            return null;
+
+        posicion++;
+        return coches.posicionVehiculo(posicion);
+    }
+
+    //Obtiene el último coche d ela lista
+    public Coche getUltimo() {
+
+        posicion = coches.sizeLista() - 1;
         return coches.posicionVehiculo(posicion);
     }
 

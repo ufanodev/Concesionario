@@ -86,4 +86,9 @@ public class ListaCoches implements Serializable {
         return ok;
     }
 
+    public Integer sizeLista(){
+        Integer size = lista.size();
+        return size;
+    }
+
 }

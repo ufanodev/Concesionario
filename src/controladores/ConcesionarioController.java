@@ -6,6 +6,7 @@ import modelos.Coche;
 import modelos.Combustible;
 import servicios.VentanaModel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -85,14 +86,57 @@ public class ConcesionarioController implements ActionListener, KeyListener {
                 view.check_hibrido.setEnabled(false);
 
                 coche = model.getActual();
-                cargar(animal);
+                cargar(coche);
 
                 view.boton_guardar.setEnabled(false);
+                break;
+            case "Eliminar":
+                if (JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+                    return;
+
+                model.eliminaCoche(view.input_matricula.getText());
+                coche = model.getActual();
+                cargar(coche);
+                break;
+            case "Buscar":
+                coche = model.obtenerCoche(view.input_buscar.getText());
+                if (coche == null) {
+                    Mensaje.mensajeInformacion("No se ha encontrado ningún coche con esa matricula", "Buscar");
+                    return;
+                }
+                cargar(coche);
+                break;
+            case "|<":
+                coche = model.getPrimero();
+                cargar(coche);
+                break;
+            case "<":
+                coche = model.getAnterior();
+                cargar(coche);
+                break;
+            case ">":
+                coche = model.getSiguiente();
+                cargar(coche);
+                break;
+            case ">|":
+                coche = model.getUltimo();
+                cargar(coche);
                 break;
             default:
                 break;
         }
 
+    }
+
+    private void cargar(Coche coche) {
+        if (coche == null)
+            return;
+
+        view.input_modelo.setText(coche.getModelo());
+        view.input_matricula.setText(coche.getMatricula());
+        view.input_fecha.setDate(coche.getFechaCompra());
+        view.combo_motor.setSelectedItem(coche.getCombustible());
+        view.check_hibrido.setSelected(coche.isHibrido());
     }
 
     @Override
@@ -107,6 +151,30 @@ public class ConcesionarioController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if (e.getSource() == view.input_buscar) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                view.boton_buscar.doClick();
+            }
+        }
     }
+
+    private void anadirKeyListener(KeyListener listener) {
+        view.input_buscar.addKeyListener(listener);
+    }
+
+    private void anadirActionListener(ActionListener listener) {
+
+        view.boton_nuevo.addActionListener(listener);
+        view.boton_guardar.addActionListener(listener);
+        view.boton_modificar.addActionListener(listener);
+        view.boton_eliminar.addActionListener(listener);
+        view.boton_primero.addActionListener(listener);
+        view.boton_anterior.addActionListener(listener);
+        view.boton_siguiente.addActionListener(listener);
+        view.boton_ultimo.addActionListener(listener);
+        view.boton_buscar.addActionListener(listener);
+    }
+
+
+
 }
